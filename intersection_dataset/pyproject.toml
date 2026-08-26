@@ -1,0 +1,16 @@
+[project]
+name = "intersection-dataset"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "numpy>=2.3.5",
+    "opencv-python>=4.11.0.86",
+    "polars>=1.38.1",
+    "scikit-image>=0.26.0",
+    "scipy>=1.16.3",
+    "shapely>=2.1.2",
+    "svgpathtools>=1.7.2",
+]

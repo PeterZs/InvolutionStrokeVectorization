@@ -1,0 +1,21 @@
+[project]
+name = "dataset-gen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "cairosvg>=2.8.2",
+    "numpy>=2.3.4",
+    "opencv-python>=4.11.0.86",
+    "picosvg>=0.22.3",
+    "python-dotenv>=1.0.0",
+    "svgpathtools>=1.7.1",
+    "svgutils",
+    "tqdm>=4.67.1",
+    "webdataset>=1.0.2",
+]
+
+[tool.uv.sources]
+svgutils = { path = "../svgutils", editable = true }

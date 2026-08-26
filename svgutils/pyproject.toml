@@ -1,0 +1,18 @@
+[project]
+name = "svgutils"
+version = "0.1.0"
+description = "Shared SVG geometry and normalization helpers used across the subprojects."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2",
+    "svgpathtools>=1.7",
+    "beautifulsoup4>=4.13",
+    "lxml>=5",
+    "cairosvg>=2.8",
+    "pillow>=10",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

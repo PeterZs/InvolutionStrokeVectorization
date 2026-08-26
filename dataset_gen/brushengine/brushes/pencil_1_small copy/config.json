@@ -1,0 +1,14 @@
+{
+    "size_pixels": 10,
+    "distance_fraction": 0.17,
+    "size_spread_fraction": 0.07,
+    "x_spread": 0.42,
+    "y_spread": 0.32,
+    "base_rotation": 0,
+    "rotation_spread_fraction": 0.5,
+     "base_patch_opacity": 0.5,
+    "patch_opacity_spread": 0.5,
+    "texture_mode": 0,
+    "start_phase": null,
+    "end_phase": null
+}

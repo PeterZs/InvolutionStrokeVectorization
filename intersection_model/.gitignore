@@ -1,0 +1,5 @@
+wandb
+logs
+checkpoints
+tmp
+debug_files

@@ -1,0 +1,13 @@
+{
+    "basic": {"size_pixels": [-2, 3]},
+    "calligraphy_marker_small": {"size_pixels": [-5, 5], 
+                                "base_rotation" : [-0.21, 0.3]},
+    "marker_1_small": {"size_pixels": [-2, 1]},
+    "small_pen": {"size_pixels": [-2, 0]},
+    "ink": {"size_pixels": [-1.5, 0]},
+    "watercolor_2": {"size_pixels": [-1.5, 1,5]},
+    "pencil_4": {"size_pixels": [-1.5, 0], "x_spread": [0, 0.1], "y_spread": [0, 0.1]},
+    "pencil_2": {"size_pixels": [-4, 0.1], "x_spread": [0, 0.1], "y_spread": [0, 0.1]},
+    "charcoal": {"size_pixels": [-4, 0.1]},
+    "pencil_3": {"size_pixels": [-1, 1]}
+}

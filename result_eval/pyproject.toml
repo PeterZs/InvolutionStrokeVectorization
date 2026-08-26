@@ -1,0 +1,22 @@
+[project]
+name = "result-eval"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "brokenaxes>=0.6.2",
+    "bs4>=0.0.2",
+    "cairosvg>=2.9.0",
+    "lxml>=6.0.2",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.3",
+    "polars>=1.39.0",
+    "scipy>=1.17.1",
+    "shapely>=2.1.2",
+    "svgpathtools>=1.7.2",
+    "svgutils",
+]
+
+[tool.uv.sources]
+svgutils = { path = "../svgutils", editable = true }

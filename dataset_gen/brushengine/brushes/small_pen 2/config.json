@@ -1,0 +1,15 @@
+{
+    "size_pixels": 8,
+    "distance_fraction" : 0.05,
+    "size_spread_fraction" : 0.2,
+    "x_spread" : 0.1,
+    "y_spread" : 0.05,
+    "base_rotation": 0.02, 
+    "rotation_spread_fraction" : 1,
+    "base_patch_opacity": 0.2,
+    "patch_opacity_spread": 0,
+    "texture_mode": 0,
+    "start_phase": null,
+    "end_phase" : {"fraction": 10, "size_profile": [1, 1.1,1.15, 1.2, 1.25,  1.2]},
+    "opacity_phase": [0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 1]
+}

@@ -1,0 +1,10 @@
+DIR=result_data9
+#methods="Ours Ours*(smoothed) Ours*ge2_2 Ours*cmo2 Ours*cmo2*smooth DeepSketch2024"
+# methods="Ours Ours*(smoothed) Ours*cmo2 Ours*cmo2*smooth v102*smooth v102 v104*smooth v104 v105_smooth v105 v106_smooth DeepSketch2024"
+methods="Ours Ours*cmo2*smooth v106_smooth v107_smooth DeepSketch2024"
+uv run plot.py "Chamfer Distance" $DIR --reorder $methods --rescale_y 0.9 --ymax 9 --iqr --output "chamfer_iqr3.pdf"
+uv run plot.py "Length diff" $DIR --reorder $methods --rescale_y 0.85 --ymax 2400 --iqr --output "length_iqr3.pdf"
+uv run plot.py "Stroke Density ratio" $DIR --reorder $methods --break-y 0 10 10.5 40 --break-ratio 5.0 --rescale_y 0.85 --hline 1.0 --iqr --output "density_iqr3.pdf"
+uv run plot.py "Chamfer Distance" $DIR --reorder $methods --rescale_y 0.9 --ymax 9 --output "chamfer3.pdf"
+uv run plot.py "Length diff" $DIR --reorder $methods --rescale_y 0.85 --ymax 2700 --output "length3.pdf"
+uv run plot.py "Stroke Density ratio" $DIR --reorder $methods --break-y 0 10 10.5 40 --break-ratio 5.0 --rescale_y 0.85 --hline 1.0 --output "density3.pdf"
