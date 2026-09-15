@@ -1,20 +1,20 @@
 # Centerline model
 
-This subproject trains the U-Net that maps a rendered line
-drawing to its centerline. The trained model is exported to TorchScript and loaded
-by the `main/` pipeline.
+This subproject trains the U-Net that maps a rendered line drawing to its centerline
+(stage 1 of the pipeline). The trained model is exported to TorchScript and loaded
+by the [`main/`](../README.md#running-the-vectorization-pipeline) pipeline.
 
 ## Models
 
 Two architectures are defined in `mymodel.py`:
 
 - `ResNextUNet`: a ResNeXt encoder with a U-Net decoder.
-- `ResNextUNetLarge`: a wider variant used for the final results.
+- `ResNextUNetLarge`: a wider variant, used for the final results.
 
 Training uses a custom loop (`train.py`) with Weights & Biases logging. Losses and
-metrics live in `metrics_and_losses.py`.
+metrics are defined in `metrics_and_losses.py`.
 
-## Setup & Data Workflow
+## Setup and data workflow
 
 ```bash
 uv sync
@@ -30,11 +30,13 @@ WANDB_PROJECT=centerline_model
 WANDB_CONSOLE=off
 DEBUG=True
 ```
-Set
-`WANDB_PROJECT` empty to disable wandb logging. `CHECKPOINT_DIR` is where checkpoints will be saved.
 
-Training is done with a preprocessing step: the archived datasets are copied and unpacked to a suitable location. This setup is to accomodate faster but limited storage found on clusters. 
-`DATA_PATH` points to the archives + pair csvs (one for each dataset) produced by `dataset_gen`:
+Leave `WANDB_PROJECT` empty to disable wandb logging. `CHECKPOINT_DIR` is where checkpoints are saved.
+
+Training includes a preprocessing step: the archived datasets are copied and unpacked to a suitable location.
+This setup accommodates the faster but limited storage typically found on clusters.
+`DATA_PATH` points to the archives and pair CSVs (one of each per dataset) produced by [`dataset_gen`](../dataset_gen/README.md):
+
 ```
 DATA_PATH
 └── train
@@ -47,8 +49,12 @@ DATA_PATH
     ├── TUBerlinDataset.csv
     └── TUBerlinDataset.tar
 ```
-The  `prepare_data.py` script writes and unpacks to `SCRATCH_DIR`, where training and testing actually read. This script usually doesn't need to be called manually, as it is called from the SLURM submission script. `SCRATCH_DIR` would look as follows:
+
+The `scripts/prepare_data.py` script copies and unpacks the data to `SCRATCH_DIR`, from which training and testing actually read.
+It usually does not need to be called manually, as the SLURM submission script calls it. `SCRATCH_DIR` looks as follows:
+
 ```
+SCRATCH_DIR
 └── train
     ├── GeCreativeDataset
     │   ├── image.webp
@@ -57,19 +63,17 @@ The  `prepare_data.py` script writes and unpacks to `SCRATCH_DIR`, where trainin
     └── ... more
 ```
 
-
-
 ## Workflow
 
-The entry point is `main.py` with a required `--mode`. The four modes are `train`,
-`test`, `predict` and `trace`. By default a CUDA device is required; pass `--cpu` to
-run on CPU.
+The entry point is `main.py`, with a required `--mode`. The four modes are `train`,
+`test`, `predict` and `trace`. By default, a CUDA device is required; pass `--cpu` to
+run on the CPU.
 
 ### Train
 
-
-On a SLURM cluster, training is submitted through `scripts/submit2.sh`. Training is distributed on 8 GPUs on one node. You can modify the script to adapt it to your SLURM configuration. 
-A submission would look as follows:
+On a SLURM cluster, training is submitted through `scripts/submit2.sh`. Training is distributed over 8 GPUs on a single node.
+You can modify the script to adapt it to your SLURM configuration.
+A submission looks as follows:
 
 ```bash
 sbatch scripts/submit2.sh main.py --model ResNextUNet --mode train \
@@ -86,15 +90,14 @@ sbatch scripts/submit2.sh main.py --model ResNextUNetLarge --mode train \
   --loss_funcs MSELoss:1.0,soft_dice_loss:0.001
 ```
 
-`--loss_funcs` takes a comma separated list of `LossName:weight` pairs.
+`--loss_funcs` takes a comma-separated list of `LossName:weight` pairs.
 
-Local debug run on CPU:
+Local debug run on the CPU (make sure the unpacked data is available in `SCRATCH_DIR`):
 
 ```bash
 uv run main.py --model ResNextUNet --mode train --datasets TUBerlinDatasetSmall \
   --debug_run 10 --cpu --batch_size 1 --val_split 0.5
 ```
-Make sure that the unpacked data is available in `SCRATCH_DIR`. 
 
 ### Test
 
@@ -102,9 +105,11 @@ Make sure that the unpacked data is available in `SCRATCH_DIR`.
 uv run main.py --model ResNextUNetLarge --mode test --datasets testset --batch_size 1 --cpu --latest
 ```
 
-Pass `--latest` to load the most recent checkpoint, or `--checkpoint <path>` for a
+Pass `--latest` to load the most recent checkpoint, or `--checkpoint <path>` to load a
 specific one.
-Note: running the test set has not been tested on the cluster.
+
+> [!NOTE]
+> Running the test set has not been tested on the cluster.
 
 ### Predict
 
@@ -122,10 +127,14 @@ Export a TorchScript model for use by `main/`:
 uv run trace_export.py ResNextUNetLarge "checkpoints/yourcheckpoint.pt" output.pt
 ```
 
-Point `CENTERLINE_MODEL` in `main/config.env` at the resulting file.
+Point `CENTERLINE_MODEL` in `main/config.env` to the resulting file.
 
 ## Pre-trained weights
 
 Checkpoints and TorchScript exports are not tracked in git. You can train and trace
-your own, or download the pre-trained weights: TODO add download link.
+your own model, or download the pre-trained `ResNextUNetLarge` checkpoint and trace it:
 
+```bash
+curl -LO https://igl.ethz.ch/projects/involution-stroke-vectorization/centerline_checkpoint.pt
+uv run trace_export.py ResNextUNetLarge centerline_checkpoint.pt centerline_traced.pt
+```

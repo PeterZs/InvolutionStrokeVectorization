@@ -1,7 +1,10 @@
-The code for the files `bezier.py` `bernpool.py` and `algebra.py` is taken from the [Kinross](https://gitlab.com/parclytaxel/Kinross) repo which contains Python tools for mathematical vector graphics and Inkscape.
-I used it to compute the intersection between two bezier curves.
+# Curve intersections
 
-Some interesting resources about finding the intersections of 2 Béziers curves:
-- https://stackoverflow.com/questions/4039229/checking-if-two-cubic-b%C3%A9zier-curves-intersect
-- https://stackoverflow.com/questions/109364/bezier-clipping
-- https://math.stackexchange.com/questions/2550987/on-the-cruelty-of-really-intersecting-b%C3%A9zier-curves
+The files `bezier.py`, `bernpol.py` and `algebra.py` are taken from the [Kinross](https://gitlab.com/parclytaxel/Kinross) repository, which contains Python tools for mathematical vector graphics and Inkscape.
+They are used to compute the intersections between two Bézier curves.
+
+Useful resources on finding the intersections of two Bézier curves:
+
+- [Checking if two cubic Bézier curves intersect](https://stackoverflow.com/questions/4039229/checking-if-two-cubic-b%C3%A9zier-curves-intersect)
+- [Bézier clipping](https://stackoverflow.com/questions/109364/bezier-clipping)
+- [On the cruelty of really intersecting Bézier curves](https://math.stackexchange.com/questions/2550987/on-the-cruelty-of-really-intersecting-b%C3%A9zier-curves)
