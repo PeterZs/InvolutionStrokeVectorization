@@ -1,5 +1,5 @@
 """Convert hand-drawn SVG annotations (one <circle> per intersection point) into
-the per-sample `x,y` CSV format used in annotation_points/, in bulk.
+the per-sample `x,y` CSV format used for the ground truth intersections, in bulk.
 
 Each circle's centre (cx, cy) becomes one CSV row. Coordinates are taken as-is
 from the SVG user space (the annotation SVGs use a viewBox whose longest edge is
@@ -43,7 +43,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("input_dir", help="Folder of annotation SVGs")
     ap.add_argument("output_dir", help="Folder to write the CSVs into "
-                                       "(NOT the real annotation_points dir)")
+                                       "(NOT the real annotation dir)")
     args = ap.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)

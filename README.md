@@ -127,6 +127,10 @@ uv run main.py --timeit --deg3 --sharp "$DATASET/1024x1024" -o "$TARGET_DIR/run_
 
 The results can then be evaluated with [`result_eval`](result_eval/README.md).
 
+We evaluate on the benchmark of [Yan et al. 2024](https://doi.org/10.1145/3658197), 369 line
+drawings rasterized at 512, 768 and 1024 px. Our hand-annotated ground truth intersections for
+those drawings can be downloaded [here](https://igl.ethz.ch/projects/involution-stroke-vectorization/annotated_intersections.zip).
+
 ## Citation
 
 ```

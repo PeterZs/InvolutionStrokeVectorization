@@ -1,12 +1,15 @@
 """Debug helper for the correct-intersection metric.
 
 Given an SVG file, compute GT intersections (from the per-sample CSV in the
-annotation_points folder), prediction intersections, and the matched subset,
+annotated_intersections folder), prediction intersections, and the matched subset,
 then write three SVGs with the drawing in the background so the three stages
 can be eyeballed side-by-side.
 """
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 
@@ -28,7 +31,7 @@ def bbox_str(pts: np.ndarray) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("svg", help="SVG file to debug")
-    ap.add_argument("--intersections-dir", default="annotation_points",
+    ap.add_argument("--intersections-dir", default="annotated_intersections",
                     help="Directory containing per-sample GT CSVs")
     ap.add_argument("--n", type=int, default=80, help="Samples per path segment")
     ap.add_argument("--d-thresh", type=float, default=1.5, help="Match distance threshold")
